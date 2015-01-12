@@ -52,3 +52,10 @@ docs/_build/
 
 # PyBuilder
 target/
+
+css/app.css
+js/main.js
+js/controller/*.js
+js/view/*.js
+js/model/*.js
+js/util/*.js
