@@ -1,5 +1,6 @@
-define [], () ->
-    class Ajax
+define ['util/trigger'], (Trigger) ->
+
+    class Ajax extends Trigger
         responseType: ""
         constructor: (@url, @method='get') ->
         request: () ->
@@ -8,12 +9,12 @@ define [], () ->
             req.addEventListener 'load', () =>
                 response = req.response
                 if response == null
-                    @trigger 'error'
+                    @trigger 'error', 'null response'
                 else
                     @trigger 'load', response
-            req.addEventListener 'error', () =>
-                @trigger 'error'
-            req.open "get", url, true
+            req.addEventListener 'error', (args...) =>
+                @trigger 'error', args...
+            req.open "get", @url, true
             req.send()
             return
 

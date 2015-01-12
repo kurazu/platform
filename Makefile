@@ -7,3 +7,6 @@ watch:
 
 css: css/app.less
 	lessc css/app.less css/app.css
+
+serve:
+	python -m SimpleHTTPServer 1337
