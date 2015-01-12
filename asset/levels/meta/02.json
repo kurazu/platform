@@ -1,0 +1,76 @@
+{
+    "backgrounds": [
+        {
+            "className": "sun"
+        },
+        {
+            "className": "clouds",
+            "style": "background-position: 0 30px",
+            "animation": {
+                "type": "auto",
+                "speedX": 1
+            }
+        },
+        {
+            "className": "earth"
+        },
+        {
+            "className": "mountain",
+            "x": 0,
+            "y": 250,
+            "animation": {
+                "type": "cam",
+                "speedX": 0.1,
+                "speedY": "static"
+            }
+        },
+        {
+            "className": "tree",
+            "x": 20,
+            "y": 270,
+            "animation": {
+                "type": "cam",
+                "speedX": 0.2,
+                "speedY": 0.4
+            }
+        },
+        {
+            "className": "tree",
+            "x": 100,
+            "y": 300,
+            "animation": {
+                "type": "cam",
+                "speedX": 0.3,
+                "speedY": 0.3
+            }
+        },
+        {
+            "className": "tree",
+            "x": 30,
+            "y": 330,
+            "animation": {
+                "type": "cam",
+                "speedX": 0.4,
+                "speedY": 0.2
+            }
+        },
+        {
+            "className": "tree",
+            "x": 0,
+            "y": 365,
+            "animation": {
+                "type": "cam",
+                "speedX": 0.5,
+                "speedY": 0
+            }
+        }
+    ],
+    "meta": {
+        "width": 209,
+        "height": 14,
+        "player": {
+            "x": 3,
+            "y": 2
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+	"backgrounds": [
+	    {"className": "clouds", "move": false},
+	    {"className": "mountain"},
+	    {"className": "tree"},
+	    {"className": "tree", "style": "background-position: 38px 77%"}
+	],
+	"meta": {
+		"width": 90,
+		"height": 20,
+		"player": {
+			"x": 1,
+			"y": 3
+		} 
+	}
+}
