@@ -3,17 +3,10 @@ define ['util/trigger', 'model/block'], (Trigger, Block) ->
         constructor: (@name, @description, @data) ->
             super()
         parse: () ->
-            try
-                @parseDescription()
-            catch ex
-                return @trigger 'error', 'description parsing', ex
-            try
-                @parseRows()
-            catch ex
-                return @trigger 'error', 'rows parsing', ex
-
+            return if @parseDescription() is Trigger.EXCEPTION
+            return if @parseRows() is Trigger.EXCEPTION
             @trigger 'load'
-        parseDescription: () ->
+        parseDescription: Trigger.raiseAsEvent () ->
             {
                 meta:
                     width: @width,
@@ -23,8 +16,8 @@ define ['util/trigger', 'model/block'], (Trigger, Block) ->
                         y: @playerY
             } = @description
             return
-        parseRows: () ->
-            @rows = []
+        parseRows: Trigger.raiseAsEvent () ->
+            rows = []
             lines = @data.split '\n'
             if not lines.length >= @height
                 throw new Error 'too few lines'
@@ -33,6 +26,7 @@ define ['util/trigger', 'model/block'], (Trigger, Block) ->
                 row = []
                 for x in [0...@width]
                     char = line[x]
-                    @row.push Block.create char
-                @rows.push row
+                    row.push Block.create char
+                rows.push row
+            @rows = rows
             return

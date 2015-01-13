@@ -20,9 +20,10 @@ define ['model/level', 'util/trigger', 'util/ajax'], (LevelModel, Trigger, ajax)
             description_ajax.bubble 'error', @
             description_ajax.request()
         onDataLoad: (what, description, data) ->
-            @model = new LevelModel @name, description, data
-            @model.chain 'load', @, 'model_load'
-            @model.bubble 'error', @
+            model = new LevelModel @name, description, data
+            model.chain 'load', @, 'model_load'
+            model.bubble 'error', @
+            model.parse()
         onModelLoad: (@model) ->
             @trigger 'load'
 
