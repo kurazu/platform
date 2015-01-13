@@ -2,7 +2,9 @@ define ['util/trigger'], (Trigger) ->
 
     class Ajax extends Trigger
         responseType: ""
+        method: "get"
         constructor: (@url, @method='get') ->
+            super()
         request: () ->
             req = new XMLHttpRequest
             req.responseType = @responseType
@@ -12,9 +14,11 @@ define ['util/trigger'], (Trigger) ->
                     @trigger 'error', 'null response'
                 else
                     @trigger 'load', response
+            , false
             req.addEventListener 'error', (args...) =>
                 @trigger 'error', args...
-            req.open "get", @url, true
+            , false
+            req.open @method, @url, true
             req.send()
             return
 

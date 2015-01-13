@@ -1,8 +1,12 @@
 define ['model/level', 'util/trigger', 'util/ajax'], (LevelModel, Trigger, ajax) ->
     LEVEL_DATA_PATH = 'asset/levels/'
+
     class Level extends Trigger
         constructor: (@name) ->
-            @on 'data_load', @onDataLoad.bind @
+            super()
+        handlers:
+            data_load: 'onDataLoad'
+            model_load: 'onModelLoad'
         load: () ->
             level_description_path = "#{LEVEL_DATA_PATH}#{@name}.json"
             level_data_path = "#{LEVEL_DATA_PATH}#{@name}.txt"
@@ -11,14 +15,16 @@ define ['model/level', 'util/trigger', 'util/ajax'], (LevelModel, Trigger, ajax)
             description_ajax.on 'load', (ajax, description) =>
                 data_ajax.on 'load', (ajax, data) =>
                     @trigger 'data_load', description, data
-                data_ajax.on 'error', @onError.bind @
+                data_ajax.bubble 'error', @
                 data_ajax.request()
-            description_ajax.on 'error', @onError.bind @
+            description_ajax.bubble 'error', @
             description_ajax.request()
-        onError: (what, args...) ->
-            @trigger 'error', args...
         onDataLoad: (what, description, data) ->
-            console.log description, data
+            @model = new LevelModel @name, description, data
+            @model.chain 'load', @, 'model_load'
+            @model.bubble 'error', @
+        onModelLoad: (@model) ->
+            @trigger 'load'
 
 
 

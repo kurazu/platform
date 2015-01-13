@@ -1,7 +1,10 @@
-define ['util/loop', 'controller/screen', 'controller/level'], (run_loop, Screen, Level) ->
+define ['util/loop', 'controller/screen', 'controller/level', 'util/trigger'], (run_loop, Screen, Level, Trigger) ->
 
-    class Game
+    class Game extends Trigger
         constructor: (@elem) ->
+            super()
+        handlers:
+            error: 'onError'
         start: () ->
             @prepare()
         run: () ->
@@ -9,10 +12,12 @@ define ['util/loop', 'controller/screen', 'controller/level'], (run_loop, Screen
         step: (diff) ->
             console.log 'step'
         prepare: () ->
-            @level = new Level '01'
-            @level.on 'load', @run.bind @
-            @level.on 'error', @onError.bind @
-            @level.load @run.bind @
+            level = new Level '01'
+            level.on 'load', (@level) =>
+                console.log 'game loaded'
+                @run()
+            level.bubble 'error', @
+            level.load()
         onError: (what, args...) ->
             console.log 'game error', args...
 

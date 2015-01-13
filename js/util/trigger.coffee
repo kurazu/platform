@@ -1,5 +1,13 @@
 define [], () ->
     class Trigger
+        observers: {}
+        handlers: {}
+        constructor: () ->
+            @bindHandlers()
+        bindHandlers: () ->
+            for own eventName, handlerName of @handlers
+                handler = @[handlerName].bind @
+                @on eventName, handler
         getOrCreateObservers: (eventName) ->
             if not @hasOwnProperty 'observers'
                 @observers = {}
@@ -17,6 +25,11 @@ define [], () ->
                 if result == false
                     return false
             return true
+        chain: (eventName, target, targetEventName) ->
+            @on eventName, (args...) ->
+                target.trigger targetEventName, args...
+        bubble: (eventName, target) ->
+            @chain eventName, target, eventName
 
     Trigger.poisonClass = (cls) ->
         return this.poisonInstance cls::
