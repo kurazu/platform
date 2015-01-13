@@ -13,7 +13,7 @@ define [], () ->
             className: className
 
     Block.create = (char, x, y) ->
-        Constructor = BLOCKS[char if char else ' ']
+        Constructor = BLOCKS[if char then char else ' ']
         return new Constructor x, y
 
     BLOCKS =

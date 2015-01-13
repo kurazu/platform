@@ -5,7 +5,9 @@ define ['util/trigger', 'model/block'], (Trigger, Block) ->
         parse: () ->
             return if @parseDescription() is Trigger.EXCEPTION
             return if @parseRows() is Trigger.EXCEPTION
-            @trigger 'load'
+            window.setTimeout () =>
+                @trigger 'load'
+            , 0
         parseDescription: Trigger.raiseAsEvent () ->
             {
                 meta:
@@ -30,3 +32,7 @@ define ['util/trigger', 'model/block'], (Trigger, Block) ->
                 rows.push row
             @rows = rows
             return
+        getBlock: (x, y) ->
+            throw new Error "y >= height (#{y} >= #{@height}" if y >= @height
+            throw new Error "x >= height (#{x} >= #{@width}" if x >= @width
+            return @rows[y][x]

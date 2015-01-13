@@ -1,4 +1,4 @@
-define ['util/loop', 'controller/screen', 'controller/level', 'util/trigger'], (run_loop, Screen, Level, Trigger) ->
+define ['util/loop', 'controller/level', 'util/trigger'], (run_loop, Level, Trigger) ->
 
     class Game extends Trigger
         constructor: (@elem) ->
