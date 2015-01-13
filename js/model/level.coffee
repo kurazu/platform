@@ -36,3 +36,10 @@ define ['util/trigger', 'model/block'], (Trigger, Block) ->
             throw new Error "y >= height (#{y} >= #{@height}" if y >= @height
             throw new Error "x >= height (#{x} >= #{@width}" if x >= @width
             return @rows[y][x]
+        forEachBlock: (callback) ->
+            for y in [0...@height]
+                row = @rows[y]
+                for x in [0...@width]
+                    block = row[x]
+                    callback x, y, block
+            return
