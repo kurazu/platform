@@ -1,14 +1,13 @@
-define ['util/trigger', 'util/dom', 'util/matrix'], (Trigger, dom, matrix) ->
+define ['util/trigger', 'util/dom', 'util/matrix', 'util/async'], (Trigger, dom, matrix, async) ->
     class LevelView extends Trigger
         constructor: (@model) ->
             super()
-        create: () ->
-            @elem = dom.div 'level'
+        create: async.defer () ->
+            level_elem = dom.div 'level'
 
-            matrix.map @model.rows, (x, y, block) =>
-                dom.child_div @elem, block.className
+            @block_views = matrix.map @model.rows, (x, y, block_model) ->
+                new BlockView level_elem, x, y, block_model
+                # block_elem = dom.child_div level_elem, "block #{block.className}"
+                # dom.style block_elem, {top: }
 
-            setTimeout () =>
-                @trigger 'load', @elem
-            , 0
-
+            @trigger 'load', elem

@@ -1,13 +1,11 @@
-define ['util/trigger', 'model/block'], (Trigger, Block) ->
+define ['util/trigger', 'model/block', 'util/async'], (Trigger, Block, async) ->
     class LevelModel extends Trigger
         constructor: (@name, @description, @data) ->
             super()
-        parse: () ->
+        parse: async.defer () ->
             return if @parseDescription() is Trigger.EXCEPTION
             return if @parseRows() is Trigger.EXCEPTION
-            window.setTimeout () =>
-                @trigger 'load'
-            , 0
+            @trigger 'load'
         parseDescription: Trigger.raiseAsEvent () ->
             {
                 meta:
