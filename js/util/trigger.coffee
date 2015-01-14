@@ -19,16 +19,18 @@ define [], () ->
             observers = @getOrCreateObservers eventName
             observers.push handler
             return
-        trigger: (eventName, args...) ->
+        _trigger: (eventName, source, args...) ->
             observers = @getOrCreateObservers eventName
             for observer in observers
-                result = observer @, args...
-                if result == false
+                result = observer source, args...
+                if result is false
                     return false
             return true
+        trigger: (eventName, args...) ->
+            @_trigger eventName, @, args...
         chain: (eventName, target, targetEventName) ->
-            @on eventName, (self, args...) ->
-                target.trigger targetEventName, args...
+            @on eventName, (self, args...) =>
+                target._trigger targetEventName, @, args...
         bubble: (eventName, target) ->
             @chain eventName, target, eventName
 
