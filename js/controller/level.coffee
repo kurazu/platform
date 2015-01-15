@@ -1,4 +1,4 @@
-define ['model/level', 'view/level', 'util/trigger', 'util/ajax'], (LevelModel, LevelView, Trigger, ajax) ->
+define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/block', 'util/matrix'], (LevelModel, LevelView, Trigger, ajax, Block, matrix) ->
     LEVEL_DATA_PATH = 'asset/levels/'
 
     class Level extends Trigger
@@ -7,7 +7,6 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax'], (LevelModel, 
         handlers:
             data_load: 'onDataLoad'
             model_load: 'onModelLoad'
-            view_load: 'onViewLoad'
         load: () ->
             level_description_path = "#{LEVEL_DATA_PATH}#{@name}.json"
             level_data_path = "#{LEVEL_DATA_PATH}#{@name}.txt"
@@ -25,13 +24,9 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax'], (LevelModel, 
             model.chain 'load', @, 'model_load'
             model.bubble 'error', @
             model.parse()
-        onModelLoad: (@model) ->
-            view = new LevelView model
-            view.chain 'load', @, 'view_load'
-            view.bubble 'error', @
-            view.create()
-        onViewLoad: (@view) ->
-            @trigger 'load'
-
-
-
+        onModelLoad: (@model, lines) ->
+            @view = new LevelView model
+            elem = @view.elem
+            matrix.map lines, (x, y, char) ->
+                new Block elem, char, x, y
+            @trigger 'load', elem

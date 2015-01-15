@@ -13,9 +13,10 @@ define ['util/loop', 'controller/level', 'util/trigger'], (run_loop, Level, Trig
             console.log 'step'
         prepare: () ->
             level = new Level '01'
-            level.on 'load', (@level) =>
+            level.on 'load', (@level, elem) =>
+                @elem.appendChild elem
                 console.log 'game loaded'
-                @run()
+                #@run()
             level.bubble 'error', @
             level.load()
         onError: (what, args...) ->

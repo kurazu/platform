@@ -10,9 +10,129 @@ body {
     align-items: center;
 }
 
+@block-size: 40px;
+
 #screen {
     background: #fff;
     width: 640px;
     height: 480px;
+    /*overflow: hidden;*/
+
+    .level {
+        position: relative;
+
+        .block {
+            width: @block-size;
+            height: @block-size;
+            position: absolute;
+            background: url(../img/map/sprites.png);
+
+            &.empty {
+                background: none;
+            }
+
+            &.brick {
+                background-position: -40px 0;
+            }
+
+            &.ground {
+                background-position: -80px 0;
+            }
+
+            &.flower {
+                background-position: -120px 0;
+            }
+
+            &.pipe-top-left {
+                background-position: -0px -40px;
+            }
+
+            &.pipe-top-right {
+                background-position: -40px -40px;
+            }
+
+            &.pipe-left {
+                background-position: -0px -80px;
+            }
+
+            &.pipe-right {
+                background-position: -40px -80px;
+            }
+
+            &.solid {
+                background-position: -80px -40px;
+            }
+
+            &.box {
+                background-position: -120px -40px;
+            }
+
+            &.pole-tip {
+                background-position: -80px -80px;
+            }
+
+            &.pole {
+                background-position: -80px -120px;
+            }
+
+            &.pipe-left-top {
+                background-position: -0px -40px;
+                -webkit-transform: rotate(90deg);
+            }
+
+            &.pipe-left-bottom {
+                background-position: -40px -40px;
+                -webkit-transform: rotate(90deg);
+            }
+
+            &.pipe-right-top {
+                background-position: -0px -40px;
+                -webkit-transform: rotate(90deg) scaleY(-1);
+            }
+
+            &.pipe-right-bottom {
+                background-position: -40px -40px;
+                -webkit-transform: rotate(90deg) scaleY(-1);
+            }
+
+            &.pipe-top {
+                background-position: -0px -80px;
+                -webkit-transform: rotate(90deg);
+            }
+
+            &.pipe-bottom {
+                background-position: -40px -80px;
+                -webkit-transform: rotate(90deg);
+            }
+
+            &.pipe-joint-left-top {
+                background-position: -0px -120px;
+            }
+
+            &.pipe-joint-left-bottom {
+                background-position: -0px -160px;
+            }
+
+            &.pipe-joint-right-top {
+                background-position: -40px -120px;
+            }
+
+            &.pipe-joint-right-bottom {
+                background-position: -40px -160px;
+            }
+
+            &.castle-flank {
+                background-position: -120px -80px;
+            }
+
+            &.castle-wall {
+                background-position: -120px -120px;
+            }
+
+            &.castle-wall-flank {
+                background-position: -120px -160px;
+            }
+        }
+    }
 }
 

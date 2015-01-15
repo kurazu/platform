@@ -13,3 +13,11 @@ define [], () ->
             return elem
         child_div: (parent, className=DEFAULT_CLASSNAME) ->
             @child_elem parent, 'div', className
+        px: (num) ->
+            "#{num}px"
+        style: (elem, styles) ->
+            elem_style = elem.style
+            for own key, value of styles
+                elem_style[key] = value
+            return elem
+
