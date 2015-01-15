@@ -9,5 +9,7 @@ define [], () ->
             for row in matrix
                 return false if row.length < width
             return true
+        reverse: (matrix) ->
+            matrix[idx] for idx in [matrix.length - 1 .. 0]
 
 
