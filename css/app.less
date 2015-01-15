@@ -25,7 +25,11 @@ body {
         .player {
             width: @block-size;
             height: @block-size * 2;
+            position: absolute;
             background: red;
+            z-index: 200;
+
+            background: url(../img/player/mario.png);
         }
 
         .block {
@@ -33,6 +37,7 @@ body {
             height: @block-size;
             position: absolute;
             background: url(../img/map/sprites.png);
+            z-index: 100;
 
             &.empty {
                 background: none;
