@@ -32,7 +32,7 @@ define ['model/block', 'view/block'], (BlockModel, BlockView) ->
         '|': [true, 'pole']
         '.': [true, 'pole-tip']
         'w': [true, 'castle-wall']
-        'f': [true, 'castle-flank']
+        'm': [true, 'castle-flank']
         'v': [true, 'castle-wall-flank']
 
     return Block

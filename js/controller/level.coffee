@@ -30,3 +30,7 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
             matrix.map lines, (x, y, char) ->
                 new Block elem, char, x, y
             @trigger 'load', elem
+        dropPlayer: (@player) ->
+            @view.elem.appendChild player.view.elem
+            player.put @model.playerX, @model.playerY
+            @trigger 'ready'

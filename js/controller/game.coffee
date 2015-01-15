@@ -1,8 +1,9 @@
-define ['util/loop', 'controller/level', 'util/trigger'], (run_loop, Level, Trigger) ->
+define ['util/loop', 'controller/level', 'util/trigger', 'controller/player'], (run_loop, Level, Trigger, Player) ->
 
     class Game extends Trigger
         constructor: (@elem) ->
             super()
+            @player = new Player()
         handlers:
             error: 'onError'
         start: () ->
@@ -15,6 +16,8 @@ define ['util/loop', 'controller/level', 'util/trigger'], (run_loop, Level, Trig
             level = new Level '01'
             level.on 'load', (@level, elem) =>
                 @elem.appendChild elem
+                @level.dropPlayer @player
+            level.on 'ready', (level) =>
                 console.log 'game loaded'
                 #@run()
             level.bubble 'error', @
