@@ -1,6 +1,5 @@
 define ['util/dom'], (dom) ->
 
-
     class BlockView
         constructor: (level_elem, @model) ->
             @elem = dom.child_div level_elem, "block #{model.className}"
