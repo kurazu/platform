@@ -13,12 +13,14 @@ define ['model/player', 'view/player', 'util/keyboard'], (PlayerModel, PlayerVie
         act: (seconds) ->
             keyboard = @keyboard
             console.log keyboard.pressed
+            new_x = @model.x
+            new_y = @model.y
             if keyboard.isRightPressed()
                 new_x = @model.x + seconds * 2.0
             else if keyboard.isLeftPressed()
                 new_x = @model.x - seconds * 2.0
-            else
-                return
-            @model.put new_x, @model.y
+            if keyboard.isSpacePressed()
+                new_y = @model.y + seconds * 2.0
+            @model.put new_x, new_y
             return
 
