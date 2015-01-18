@@ -7,3 +7,5 @@ define ['model/player', 'view/player'], (PlayerModel, PlayerView) ->
             @view = new PlayerView @model
         put: (x, y) ->
             @model.put x, y
+        setDisplayTransform: (displayTransform) ->
+            @view.setDisplayTransform displayTransform

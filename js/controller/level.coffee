@@ -26,14 +26,16 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
             model.parse()
         onModelLoad: (@model, lines) ->
             @view = new LevelView model
+            displayTransform = @view.getDisplayTransform()
             elem = @view.elem
             matrix.map lines, (x, y, char) ->
                 if not char or char == ' '
                     return undefined
                 else
-                    return new Block elem, char, x, y
+                    return new Block elem, displayTransform, char, x, y
             @trigger 'load', elem
         dropPlayer: (@player) ->
+            @player.setDisplayTransform @view.getDisplayTransform()
             @view.elem.appendChild player.view.elem
             player.put @model.playerX, @model.playerY
             @trigger 'ready'
