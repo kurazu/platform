@@ -1,10 +1,11 @@
-define ['util/dom', 'view/block'], (dom, BlockView) ->
+define ['util/dom', 'util/constants'], (dom, constants) ->
+
     class PlayerView
         constructor: (@model) ->
             @elem = dom.div 'player'
             model.on 'move', @onMove.bind @
         onMove: (model, x, y) ->
             styles =
-                left: dom.px BlockView.BLOCK_SIZE * x
-                top: dom.px BlockView.BLOCK_SIZE * y
+                left: dom.px constants.BLOCK_SIZE * x
+                top: dom.px constants.BLOCK_SIZE * y
             dom.style @elem, styles
