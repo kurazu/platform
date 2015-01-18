@@ -11,8 +11,8 @@ define [], () ->
             @half_height = @height / 2
         getDrawPoint: () ->
             return {
-                x: getMinX(),
-                y: getMaxY()
+                x: @getMinX(),
+                y: @getMaxY()
             }
         getMinX: () ->
             @x + @x_offset
