@@ -1,4 +1,5 @@
 define ['util/trigger', 'model/block', 'util/async', 'util/matrix'], (Trigger, Block, async, matrix) ->
+    "use strict"
 
     class LevelModel extends Trigger
         constructor: (@name, @description, @data) ->

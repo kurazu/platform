@@ -1,4 +1,5 @@
 define ['util/trigger', 'model/object'], (Trigger, ObjectModel) ->
+    "use strict"
 
     class PlayerModel extends ObjectModel
         width: 1

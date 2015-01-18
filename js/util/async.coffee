@@ -1,4 +1,6 @@
 define [], () ->
+    "use strict"
+
     async =
         defer: (func) ->
             () ->

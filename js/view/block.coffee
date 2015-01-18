@@ -1,4 +1,5 @@
 define ['util/dom', 'util/constants'], (dom, constants) ->
+    "use strict"
 
     class BlockView
         constructor: (level_elem, @model) ->

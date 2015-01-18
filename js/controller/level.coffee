@@ -1,5 +1,5 @@
-define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/block', 'util/matrix'], (LevelModel, LevelView, Trigger, ajax, Block, matrix) ->
-    LEVEL_DATA_PATH = 'asset/levels/'
+define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/block', 'util/matrix', 'util/constants'], (LevelModel, LevelView, Trigger, ajax, Block, matrix, constants) ->
+    "use strict"
 
     class Level extends Trigger
         constructor: (@name) ->
@@ -8,8 +8,8 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
             data_load: 'onDataLoad'
             model_load: 'onModelLoad'
         load: () ->
-            level_description_path = "#{LEVEL_DATA_PATH}#{@name}.json"
-            level_data_path = "#{LEVEL_DATA_PATH}#{@name}.txt"
+            level_description_path = "#{constants.LEVEL_DATA_PATH}#{@name}.json"
+            level_data_path = "#{constants.LEVEL_DATA_PATH}#{@name}.txt"
             description_ajax = new ajax.JSONAjax level_description_path
             data_ajax = new ajax.TextAjax level_data_path
             description_ajax.on 'load', (ajax, description) =>

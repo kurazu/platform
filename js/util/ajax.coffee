@@ -1,4 +1,5 @@
 define ['util/trigger'], (Trigger) ->
+    "use strict"
 
     class Ajax extends Trigger
         responseType: ""

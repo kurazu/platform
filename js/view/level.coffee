@@ -1,4 +1,5 @@
 define ['util/trigger', 'util/dom', 'util/matrix', 'util/async', 'util/constants'], (Trigger, dom, matrix, async, constants) ->
+    "use strict"
 
     class LevelView extends Trigger
         constructor: (@model) ->

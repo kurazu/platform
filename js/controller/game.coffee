@@ -1,4 +1,5 @@
 define ['util/loop', 'controller/level', 'util/trigger', 'controller/player'], (run_loop, Level, Trigger, Player) ->
+    "use strict"
 
     class Game extends Trigger
         constructor: (@elem) ->

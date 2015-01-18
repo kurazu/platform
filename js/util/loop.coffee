@@ -1,4 +1,5 @@
 define [], () ->
+    "use strict"
 
     (callback, min_ms, max_ms) ->
         prev_timestamp = +new Date

@@ -1,4 +1,6 @@
 define ['model/player', 'view/player'], (PlayerModel, PlayerView) ->
+    "use strict"
+
     class Player
         constructor: () ->
             @model = new PlayerModel()

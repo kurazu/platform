@@ -1,4 +1,5 @@
 define ['model/block', 'view/block'], (BlockModel, BlockView) ->
+    "use strict"
 
     class Block
         constructor: (level_elem, char, x, y) ->

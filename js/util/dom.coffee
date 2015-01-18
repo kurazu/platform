@@ -1,5 +1,8 @@
 define [], () ->
+    "use strict"
+
     DEFAULT_CLASSNAME = ""
+
     dom =
         elem: (tag, className=DEFAULT_CLASSNAME) ->
             elem = document.createElement tag

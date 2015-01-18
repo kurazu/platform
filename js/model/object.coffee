@@ -1,4 +1,5 @@
 define [], () ->
+    "use strict"
 
     class ObjectModel
         width: 1

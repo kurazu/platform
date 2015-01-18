@@ -1,4 +1,6 @@
 define [], () ->
+    "use strict"
+
     class Trigger
         handlers: {}
         constructor: () ->
@@ -50,7 +52,6 @@ define [], () ->
                 return Trigger.EXCEPTION
 
     Trigger.EXCEPTION = {}
-
 
     return Trigger
 

@@ -1,4 +1,6 @@
 define [], () ->
+    "use strict"
+
     matrix =
         map: (matrix, callback) ->
             Array::map.call matrix, (row, y) ->
