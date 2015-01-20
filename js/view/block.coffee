@@ -1,6 +1,6 @@
-define ['util/dom', 'util/constants'], (dom, constants) ->
+define ['view/object', 'util/dom'], (ObjectView, dom) ->
     "use strict"
 
-    class BlockView
-        constructor: (level_elem, @model) ->
-            @elem = dom.child_div level_elem, "block #{model.className}"
+    class BlockView extends ObjectView
+        createElement: () ->
+            return dom.div "block #{@model.className}"

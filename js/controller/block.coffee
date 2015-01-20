@@ -2,10 +2,10 @@ define ['model/block', 'view/block'], (BlockModel, BlockView) ->
     "use strict"
 
     class Block
-        constructor: (level_elem, char, x, y) ->
+        constructor: (char, x, y) ->
             [solid, className] = Block.TYPES[char or ' ']
             @model = new BlockModel x, y, solid, className
-            @view = new BlockView level_elem, @model
+            @view = new BlockView @model
 
 
     Block.TYPES =

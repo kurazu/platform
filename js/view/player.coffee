@@ -1,6 +1,6 @@
-define ['util/dom', 'util/constants'], (dom, constants) ->
+define ['view/object', 'util/dom'], (ObjectView, dom) ->
     "use strict"
 
-    class PlayerView
-        constructor: (@model) ->
-            @elem = dom.div 'player'
+    class PlayerView extends ObjectView
+        createElement: () ->
+            return dom.div 'player'

@@ -8,6 +8,8 @@ define ['model/player', 'view/player', 'util/keyboard', 'util/trigger'], (Player
             @model.chain 'move', @, 'move'
             @view = new PlayerView @model
             @keyboard = new Keyboard document
+            @model.on 'move', (model) =>
+                @view.trigger 'move', model
         put: (x, y) ->
             @model.put x, y
         act: (seconds) ->

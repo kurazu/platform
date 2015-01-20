@@ -27,13 +27,15 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
         onModelLoad: (@model, lines) ->
             @view = new LevelView model
             elem = @view.elem
-            matrix.map lines, (x, y, char) ->
+            matrix.map lines, (x, y, char) =>
                 if not char or char == ' '
                     return undefined
                 else
-                    return new Block elem, char, x, y
+                    block = new Block char, x, y
+                    @view.nestView block.view
+                    return block
             @trigger 'load', elem
         dropPlayer: (@player) ->
-            @view.dropPlayer player
+            @view.nestView player.view
             player.put @model.playerX, @model.playerY
             @trigger 'ready'
