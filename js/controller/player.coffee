@@ -1,18 +1,17 @@
-define ['model/player', 'view/player', 'util/keyboard'], (PlayerModel, PlayerView, Keyboard) ->
+define ['model/player', 'view/player', 'util/keyboard', 'util/trigger'], (PlayerModel, PlayerView, Keyboard, Trigger) ->
     "use strict"
 
-    class Player
+    class Player extends Trigger
         constructor: () ->
+            super()
             @model = new PlayerModel()
+            @model.chain 'move', @, 'move'
             @view = new PlayerView @model
             @keyboard = new Keyboard document
         put: (x, y) ->
             @model.put x, y
-        setDisplayTransform: (displayTransform) ->
-            @view.setDisplayTransform displayTransform
         act: (seconds) ->
             keyboard = @keyboard
-            console.log keyboard.pressed
             new_x = @model.x
             new_y = @model.y
             if keyboard.isRightPressed()

@@ -1,4 +1,4 @@
-define ['util/trigger', 'model/object'], (Trigger, ObjectModel) ->
+define ['model/object'], (ObjectModel) ->
     "use strict"
 
     class PlayerModel extends ObjectModel
@@ -8,10 +8,3 @@ define ['util/trigger', 'model/object'], (Trigger, ObjectModel) ->
         y_offset: +2
         constructor: () ->
             super()
-            @initTrigger()
-        put: (@x, @y) ->
-            @trigger 'move', x, y
-
-    Trigger.poisonClass PlayerModel
-
-    return PlayerModel

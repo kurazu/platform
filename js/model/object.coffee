@@ -1,12 +1,13 @@
-define [], () ->
+define ['util/trigger'], (Trigger) ->
     "use strict"
 
-    class ObjectModel
+    class ObjectModel extends Trigger
         width: 1
         height: 1
         x_offset: -0.5
         y_offset: +0.5
         constructor: (@x=0, @y=0) ->
+            super()
             @half_width = @width / 2
             @half_height = @height / 2
         getDrawPoint: () ->
@@ -15,9 +16,9 @@ define [], () ->
                 y: @getMaxY()
             }
         getMinX: () ->
-            @x + @x_offset
+            return @x + @x_offset
         getMaxY: () ->
-            @y + @y_offset
+            return @y + @y_offset
         getBox: () ->
             min_x = @getMinX()
             max_x = min_x + @width
@@ -29,3 +30,5 @@ define [], () ->
                 min_y: min_y
                 max_y: max_y
             }
+        put: (@x, @y) ->
+            @trigger 'move', x, y
