@@ -1,5 +1,10 @@
-define ['model/player', 'view/player', 'util/keyboard', 'util/trigger'], (PlayerModel, PlayerView, Keyboard, Trigger) ->
+define ['model/player', 'view/player', 'util/keyboard', 'util/trigger', 'util/vector'], (PlayerModel, PlayerView, Keyboard, Trigger, Vector) ->
     "use strict"
+
+    VECTOR_LEFT = new Vector Math.PI, 1
+    VECTOR_RIGHT = new Vector 0, 1
+    VECTOR_JUMP = new Vector 0, 2
+    VECTOR_GRAVITY = new Vector 1.5 * Math.PI, 1
 
     class Player extends Trigger
         constructor: () ->
@@ -13,15 +18,21 @@ define ['model/player', 'view/player', 'util/keyboard', 'util/trigger'], (Player
         put: (x, y) ->
             @model.put x, y
         act: (seconds) ->
+            will = new Vector 0, 0
             keyboard = @keyboard
-            new_x = @model.x
-            new_y = @model.y
             if keyboard.isRightPressed()
-                new_x = @model.x + seconds * 2.0
+                will.addInplace VECTOR_RIGHT
             else if keyboard.isLeftPressed()
-                new_x = @model.x - seconds * 2.0
+                will.addInplace VECTOR_LEFT
             if keyboard.isSpacePressed()
-                new_y = @model.y + seconds * 2.0
-            @model.put new_x, new_y
+                will.addInplace VECTOR_JUMP
+            will.addInplace VECTOR_GRAVITY
+
+            will.scaleInplace seconds
+
+            dx = will.getDx()
+            dy = will.getDy()
+
+            @model.push dx, dy
             return
 

@@ -1,4 +1,4 @@
-define ['util/trigger'], (Trigger) ->
+define ['util/trigger', 'util/vector'], (Trigger, Vector) ->
     "use strict"
 
     class ObjectModel extends Trigger
@@ -6,6 +6,7 @@ define ['util/trigger'], (Trigger) ->
         height: 1
         x_offset: -0.5
         y_offset: +0.5
+        will: new Vector 0, 0
         constructor: (@x=0, @y=0) ->
             super()
             @half_width = @width / 2
@@ -32,3 +33,9 @@ define ['util/trigger'], (Trigger) ->
             }
         put: (@x, @y) ->
             @trigger 'move', x, y
+        push: (dx, dy) ->
+            @put @x + dx, @y + dy
+        clearWill: () ->
+            @will = new Vector 0, 0
+        addWill: (will) ->
+            @will = @will.add will
