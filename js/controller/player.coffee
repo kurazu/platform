@@ -3,7 +3,7 @@ define ['model/player', 'view/player', 'util/keyboard', 'util/trigger', 'util/ve
 
     VECTOR_LEFT = new Vector Math.PI, 1
     VECTOR_RIGHT = new Vector 0, 1
-    VECTOR_JUMP = new Vector 0, 2
+    VECTOR_JUMP = new Vector Math.PI / 2, 2
     VECTOR_GRAVITY = new Vector 1.5 * Math.PI, 1
 
     class Player extends Trigger

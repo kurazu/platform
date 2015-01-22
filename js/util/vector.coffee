@@ -50,6 +50,10 @@ define [], () ->
     Vector.fromDxDy = (dx, dy) ->
         length = Math.sqrt dx * dx + dy * dy
         angle = Math.asin dy / length
+
+        # compensate for cyclometric functions not working full angle range
+        angle = Math.PI - angle if dx < 0
+
         return new Vector angle, length
 
     return Vector
