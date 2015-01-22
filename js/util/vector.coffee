@@ -3,8 +3,13 @@ define [], () ->
 
     class Vector
         constructor: (@angle, @length) ->
+        add: (other) ->
+            return Vector.compose [@, other]
         addInplace: (other) ->
-            throw new Error 'NotImplemented'
+            result = @add other
+            @angle = result.angle
+            @length = result.length
+            return @
         toDxDy: () ->
             dx = @length * Math.cos @angle
             dy = @length * Math.sin @angle

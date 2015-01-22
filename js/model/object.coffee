@@ -6,9 +6,9 @@ define ['util/trigger', 'util/vector'], (Trigger, Vector) ->
         height: 1
         x_offset: -0.5
         y_offset: +0.5
-        will: new Vector 0, 0
         constructor: (@x=0, @y=0) ->
             super()
+            @velocity = new Vector 0, 0
             @half_width = @width / 2
             @half_height = @height / 2
         getDrawPoint: () ->
@@ -35,7 +35,3 @@ define ['util/trigger', 'util/vector'], (Trigger, Vector) ->
             @trigger 'move', x, y
         push: (dx, dy) ->
             @put @x + dx, @y + dy
-        clearWill: () ->
-            @will = new Vector 0, 0
-        addWill: (will) ->
-            @will = @will.add will
