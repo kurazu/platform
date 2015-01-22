@@ -1,14 +1,17 @@
-define ['util/point'], (Point) ->
+define [], () ->
     "use strict"
 
     class Vector
         constructor: (@angle, @length) ->
         addInplace: (other) ->
             throw new Error 'NotImplemented'
-        toPoint: () ->
+        toDxDy: () ->
             dx = @length * Math.cos @angle
             dy = @length * Math.sin @angle
-            return new Point dx, dy
+            return {
+                dx: dx
+                dy: dy
+            }
         scale: (factor) ->
             return new Vector @angle, @length * factor
         scaleInplace: (factor) ->
@@ -27,3 +30,26 @@ define ['util/point'], (Point) ->
                 along: alongVector,
                 perpendicular: perpendicularVector
             }
+
+    Vector.composeDxDy = (vectors) ->
+        dx = 0
+        dy = 0
+        for vector in vectors
+            {dx: vectorDx, dy: vectorDy} = vector.toDxDy()
+            dx += vectorDx
+            dy += vectorDy
+        return {
+            dx: dx,
+            dy: dy
+        }
+
+    Vector.compose = (vectors) ->
+        {dx: dx, dy: dy} = Vector.composeDxDy vectors
+        return Vector.fromDxDy dx, dy
+
+    Vector.fromDxDy = (dx, dy) ->
+        length = Math.sqrt dx * dx + dy * dy
+        angle = Math.asin dy / length
+        return new Vector angle, length
+
+    return Vector

@@ -18,20 +18,20 @@ define ['model/player', 'view/player', 'util/keyboard', 'util/trigger', 'util/ve
         put: (x, y) ->
             @model.put x, y
         act: (seconds) ->
-            will = new Vector 0, 0
+            wills = []
             keyboard = @keyboard
             if keyboard.isRightPressed()
-                will.addInplace VECTOR_RIGHT
+                wills.push VECTOR_RIGHT
             else if keyboard.isLeftPressed()
-                will.addInplace VECTOR_LEFT
+                wills.push  VECTOR_LEFT
             if keyboard.isSpacePressed()
-                will.addInplace VECTOR_JUMP
-            will.addInplace VECTOR_GRAVITY
+                wills.push VECTOR_JUMP
+            wills.push VECTOR_GRAVITY
 
+            will = Vector.compose wills
             will.scaleInplace seconds
 
-            dx = will.getDx()
-            dy = will.getDy()
+            {dx: dx, dy: dy} = will.toDxDy()
 
             @model.push dx, dy
             return
