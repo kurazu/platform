@@ -4,18 +4,24 @@ define [], () ->
     class Vector
         constructor: (@angle, @length) ->
         add: (other) ->
-            return Vector.compose [@, other]
+            dx = @toDx() + other.toDx()
+            dy = @toDy() + other.toDy()
+            return Vector.fromDxDy dx, dy
         addInplace: (other) ->
             result = @add other
             @angle = result.angle
             @length = result.length
             return @
+        toDx: () ->
+            return @length * Math.cos @angle
+        toDy: () ->
+            return @length * Math.sin @angle
         toDxDy: () ->
             dx = @length * Math.cos @angle
             dy = @length * Math.sin @angle
             return {
-                dx: dx
-                dy: dy
+                dx: @toDx()
+                dy: @toDy()
             }
         scale: (factor) ->
             return new Vector @angle, @length * factor

@@ -13,7 +13,10 @@ define ['util/loop', 'controller/level', 'util/trigger', 'controller/player'], (
             run_loop @step.bind(@), 8, 64
         step: (diff) ->
             seconds = diff / 1000
+            # Player updates his velocity
             @player.act seconds
+            # We try to move player
+            @level.animate @player, seconds
         prepare: () ->
             level = new Level '01'
             level.on 'load', (@level, elem) =>

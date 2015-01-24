@@ -35,3 +35,5 @@ define ['util/trigger', 'util/vector'], (Trigger, Vector) ->
             @trigger 'move', x, y
         push: (dx, dy) ->
             @put @x + dx, @y + dy
+        move: (@x, @y) ->
+            @trigger 'move', x, y

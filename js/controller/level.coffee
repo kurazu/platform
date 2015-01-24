@@ -39,3 +39,16 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
             @view.nestView player.view
             player.put @model.playerX, @model.playerY
             @trigger 'ready'
+        animate: (player, seconds) ->
+            model = player.model
+            {x: current_x, y: current_y, velocity: velocity} = model
+
+            # First we calculate the desired target position
+            frameVelocity = velocity.scale seconds
+            {dx: dx, dy: dy} = frameVelocity.toDxDy()
+
+            new_x = current_x + dx
+            new_y = current_y + dy
+
+            model.move new_x, new_y
+

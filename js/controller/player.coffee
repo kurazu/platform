@@ -34,10 +34,5 @@ define ['model/player', 'view/player', 'util/keyboard', 'util/trigger', 'util/ve
 
             @model.velocity.addInplace velocity_change
 
-            frameVelocity = @model.velocity.scale seconds
-
-            {dx: dx, dy: dy} = frameVelocity.toDxDy()
-
-            @model.push dx, dy
             return
 
