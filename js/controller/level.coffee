@@ -1,4 +1,4 @@
-define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/block', 'util/matrix', 'util/constants'], (LevelModel, LevelView, Trigger, ajax, Block, matrix, constants) ->
+define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/block', 'util/matrix', 'util/constants', 'util/dom'], (LevelModel, LevelView, Trigger, ajax, Block, matrix, constants, dom) ->
     "use strict"
 
     class Level extends Trigger
@@ -63,6 +63,9 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
 
             result = []
 
+            for elem in @view.elem.querySelectorAll '.block.colliding'
+                dom.removeClass elem, 'colliding'
+
             for x in [minXIndex..maxXIndex]
                 continue if x < 0 || x >= @model.width
                 for y in [minYIndex..maxYIndex]
@@ -71,8 +74,8 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
                     continue if not block
                     blockBox = block.model.getBox()
                     if box.isColliding blockBox
-                        console.log 'collide', block
+                        # debug
+                        dom.addClass block.view.elem, "colliding"
                         result.push block
 
-            return []
-
+            return result

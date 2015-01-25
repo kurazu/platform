@@ -23,4 +23,11 @@ define [], () ->
             for own key, value of styles
                 elem_style[key] = value
             return elem
+        addClass: (elem, className) ->
+            elem.classList.add className
+            return elem
+        removeClass: (elem, className) ->
+            elem.classList.remove className
+            return elem
+
 
