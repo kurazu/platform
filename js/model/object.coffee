@@ -1,36 +1,39 @@
-define ['util/trigger', 'util/vector'], (Trigger, Vector) ->
+define ['util/trigger', 'util/vector', 'model/box'], (Trigger, Vector, Box) ->
     "use strict"
 
     class ObjectModel extends Trigger
         width: 1
         height: 1
-        x_offset: -0.5
-        y_offset: +0.5
+        xOffset: -0.5
+        yOffset: +0.5
+        box: null
         constructor: (@x=0, @y=0) ->
             super()
             @velocity = new Vector 0, 0
-            @half_width = @width / 2
-            @half_height = @height / 2
+            @halfWidth = @width / 2
+            @halfHeight = @height / 2
+            @on 'move', @clearBoxCache.bind @
+        clearBoxCache: () ->
+            @box = null
         getDrawPoint: () ->
             return {
                 x: @getMinX(),
                 y: @getMaxY()
             }
-        getMinX: () ->
-            return @x + @x_offset
-        getMaxY: () ->
-            return @y + @y_offset
-        getBox: () ->
-            min_x = @getMinX()
-            max_x = min_x + @width
-            max_y = @getMaxY()
-            min_y = max_y - @height
-            return {
-                min_x: min_x
-                max_x: max_x
-                min_y: min_y
-                max_y: max_y
-            }
+        getMinX: (x=@x) ->
+            return x + @xOffset
+        getMaxY: (y=@y) ->
+            return y + @yOffset
+        getBox: (x=@x, y=@y) ->
+            if @box and x == @x and y == @y
+                return @box
+
+            minX = @getMinX(x)
+            maxX = minX + @width
+            maxY = @getMaxY(y)
+            minY = maxY - @height
+
+            return new Box minX, maxX, minY, maxY
         put: (@x, @y) ->
             @trigger 'move', x, y
         push: (dx, dy) ->

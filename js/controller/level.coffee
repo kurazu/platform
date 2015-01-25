@@ -27,7 +27,7 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
         onModelLoad: (@model, lines) ->
             @view = new LevelView model
             elem = @view.elem
-            matrix.map lines, (x, y, char) =>
+            @blocks = matrix.map lines, (x, y, char) =>
                 if not char or char == ' '
                     return undefined
                 else
@@ -41,14 +41,38 @@ define ['model/level', 'view/level', 'util/trigger', 'util/ajax', 'controller/bl
             @trigger 'ready'
         animate: (player, seconds) ->
             model = player.model
-            {x: current_x, y: current_y, velocity: velocity} = model
+            {x: currentX, y: currentY, velocity: velocity} = model
 
             # First we calculate the desired target position
             frameVelocity = velocity.scale seconds
             {dx: dx, dy: dy} = frameVelocity.toDxDy()
 
-            new_x = current_x + dx
-            new_y = current_y + dy
+            newX = currentX + dx
+            newY = currentY + dy
+            box = model.getBox newX, newY
 
-            model.move new_x, new_y
+            colliding = @findColliding box
+
+            model.move newX, newY
+            return
+        findColliding: (box) ->
+            minXIndex = Math.floor box.minX
+            minYIndex = Math.floor box.minY
+            maxXIndex = Math.ceil box.maxX
+            maxYIndex = Math.ceil box.maxY
+
+            result = []
+
+            for x in [minXIndex..maxXIndex]
+                continue if x < 0 || x >= @model.width
+                for y in [minYIndex..maxYIndex]
+                    continue if y < 0 || y >= @model.height
+                    block = @blocks[y][x]
+                    continue if not block
+                    blockBox = block.model.getBox()
+                    if box.isColliding blockBox
+                        console.log 'collide', block
+                        result.push block
+
+            return []
 
